@@ -13,8 +13,9 @@ const Login = () => {
       const res = await api.post('/auth/login', { email, password });
       localStorage.setItem('token', res.data.token);
       navigate('/dashboard');
-    } catch (error) {
-      alert('Login failed');
+    } catch (error: any) {
+      console.error('Login error:', error);
+      alert(`Login failed: ${error.response?.data?.message || error.message}`);
     }
   };
 
