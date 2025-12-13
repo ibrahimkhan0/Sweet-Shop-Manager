@@ -2,6 +2,10 @@
 
 A full-stack application for managing a sweet shop, built with Node.js, Express, TypeScript, Prisma, and React.
 
+## Working Visual
+
+https://github.com/user-attachments/assets/9413d65b-539e-47cc-a29a-400fca29725d
+
 ## Features
 
 - **User Authentication**: Register and Login with JWT.
