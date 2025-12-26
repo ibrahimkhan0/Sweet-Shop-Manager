@@ -19,9 +19,21 @@ const Dashboard = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [search, setSearch] = useState('');
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        if (payload.role === 'ADMIN') {
+          setIsAdmin(true);
+        }
+      } catch (e) {
+        console.error('Failed to parse token');
+      }
+    }
     fetchSweets();
   }, []);
 
@@ -106,6 +118,14 @@ const Dashboard = () => {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-blue-600">Sweet Shop Dashboard</h1>
         <div className="flex gap-4">
+          {isAdmin && (
+            <button 
+              onClick={() => navigate('/admin')} 
+              className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+            >
+              Admin Panel
+            </button>
+          )}
           <button 
             onClick={() => setIsCartOpen(!isCartOpen)} 
             className="bg-yellow-500 text-white px-4 py-2 rounded relative"
